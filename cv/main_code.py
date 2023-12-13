@@ -1,3 +1,5 @@
+# THIS IS A CODE FILE WHICH HAS SOME ERRORS AND NO LONGER WORKS, ITS EDITED VERSION ALSO DOESNT WORK.
+
 import cv2
 import numpy as np
 from PIL import Image

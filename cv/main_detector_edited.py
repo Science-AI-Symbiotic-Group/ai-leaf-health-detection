@@ -1,3 +1,7 @@
+# THIS IS A EDITED VERSION OF main_code.py WHICH NO LONGER WORKS.
+
+
+
 import cv2
 import numpy as np
 from PIL import Image
@@ -52,7 +56,7 @@ while not leaf_detected:
 
     # Convert the captured frame into RGB
     im = Image.fromarray(frame, 'RGB')
-
+    
     # Resize the frame to match the dimensions used during training
     im = im.resize((256, 256))
     img_array = np.array(im)

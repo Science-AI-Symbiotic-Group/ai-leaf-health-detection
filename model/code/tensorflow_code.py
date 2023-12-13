@@ -39,11 +39,10 @@ AUTOTUNE = tf.data.AUTOTUNE
 #train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
 #val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
 
-
 num_classes = len(training_dataset)
 
 model = Sequential([
-  Rescaling(1./255, input_shape=(img_height, img_width, 3)),
+  Dense(32, activation='relu'),
   Conv2D(16, 3, padding='same', activation='relu'),
   MaxPooling2D(),
   Conv2D(32, 3, padding='same', activation='relu'),
@@ -58,7 +57,7 @@ model = Sequential([
 
 
 model.compile(optimizer='adam',
-              loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
+              loss=tf.keras.losses.BinaryCrossentropy(),
               metrics=['accuracy'])
 
 epochs=20
@@ -68,7 +67,7 @@ history = model.fit(
   epochs=epochs
 )
 
-model.save("tensorflow_model.h5",save_format="h5")
+model.save("tensorflow_model_with_dense_2.h5",save_format="h5")
 
 print("Saved Model.")
 
