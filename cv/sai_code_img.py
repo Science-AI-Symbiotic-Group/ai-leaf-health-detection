@@ -7,7 +7,7 @@ import tensorflow as tf
 
 
 
-frame = cv2.imread("dead_leaf.jpg")
+frame = cv2.imread("healthy4.jpg")
 
 model = models.load_model('tensorflow_model_with_dense.h5')
 #Convert the captured frame into RGB
@@ -20,9 +20,14 @@ img_array = np.expand_dims(img_array, axis=0)
 #Calling the predict function using keras
 prediction = model.predict(img_array)#[0][0]
 print(prediction)
+
 #Customize this part to your liking...
-#if(prediction == 1 or prediction == 0):
-    #print("No Leaf")
+if(prediction == 1 ):
+    print(" Leaf is Healthy")
+elif (prediction<1):
+        print('Leaf is Unhealthy ty')
+    
+"""
 if(prediction < 0.5 and prediction != 0):
     print("HEALTHY LEAF")
 elif(prediction > 0.5 and prediction != 1):
@@ -33,3 +38,4 @@ cv2.imshow("Prediction", frame)
 key=cv2.waitKey(1)
 if key == ord('q'):
     cv2.destroyAllWindows()
+"""   
