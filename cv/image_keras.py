@@ -7,7 +7,7 @@ import tensorflow as tf
 
 
 
-frame = cv2.imread("images/unhealthy_leaf.jpg")
+frame = cv2.imread("images/healthy.jpg")
 os.system('dir')
 model = models.load_model('models/tensorflow_model_with_dense.h5')
 #Convert the captured frame into RGB
