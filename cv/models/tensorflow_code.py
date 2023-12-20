@@ -60,7 +60,7 @@ model.compile(optimizer='adam',
               loss=tf.keras.losses.BinaryCrossentropy(),
               metrics=['accuracy'])
 
-epochs=20
+epochs=5
 history = model.fit(
   train_ds,
   validation_data=val_ds,
