@@ -2,16 +2,36 @@ import cv2
 import numpy as np
 from PIL import Image
 from keras import models
-import os
 import tensorflow as tf
+import argparse
+import errno
+from os import strerror
 
 
+argument_parser = argparse.ArgumentParser()
 
-frame = cv2.imread("images/healthy.jpg")
-os.system('dir')
-model = models.load_model('models/tensorflow_model_with_dense.h5')
+argument_parser.add_argument("image",help="Image path of the code to run")
+argument_parser.add_argument("model_path",help="specify the .h5 models path")
+
+arguments = argument_parser.parse_args()
+
+image_path = arguments.image
+model_path = arguments.model_path
+
+
+frame = cv2.imread(image_path)
+
+try:
+    model = models.load_model(model_path)
+except OSError:
+    raise FileNotFoundError(errno.ENOENT, strerror(errno.ENOENT), model_path)
 #Convert the captured frame into RGB
-im = Image.fromarray(frame, 'RGB')
+
+try:
+    im = Image.fromarray(frame, 'RGB')
+except AttributeError:
+    raise FileNotFoundError(errno.ENOENT, strerror(errno.ENOENT), image_path)
+
 #Resizing into dimensions you used while training
 im = im.resize((256,256))
 img_array = np.array(im)
@@ -30,7 +50,7 @@ elif(prediction<1):
 
 cv2.imshow("Prediction", frame)
 
-key=cv2.waitKey(1)
+key=cv2.waitKey(0)
 
 if key == ord('q'):
     cv2.destroyAllWindows()
