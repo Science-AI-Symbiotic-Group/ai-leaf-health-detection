@@ -15,7 +15,7 @@ img_height = 256
 img_width = 256
 
 train_ds = tf.keras.utils.image_dataset_from_directory(
-  "dataset/leaves_healthy_or_diseased",
+  "../../dataset/leaves_healthy_or_diseased",
   validation_split=0.2,
   subset="training",
   seed=98,
@@ -24,7 +24,7 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
 
 
 val_ds = tf.keras.utils.image_dataset_from_directory(
-  "dataset/leaves_healthy_or_diseased",
+  "../../dataset/leaves_healthy_or_diseased",
   validation_split=0.2,
   subset="validation",
   seed=123,
@@ -42,7 +42,7 @@ AUTOTUNE = tf.data.AUTOTUNE
 num_classes = len(training_dataset)
 
 model = Sequential([
-  Dense(32, activation='relu'),
+  Dense(128, activation='relu'),
   Conv2D(16, 3, padding='same', activation='relu'),
   MaxPooling2D(),
   Conv2D(32, 3, padding='same', activation='relu'),
@@ -60,14 +60,14 @@ model.compile(optimizer='adam',
               loss=tf.keras.losses.BinaryCrossentropy(),
               metrics=['accuracy'])
 
-epochs=5
+epochs=10
 history = model.fit(
   train_ds,
   validation_data=val_ds,
   epochs=epochs
 )
 
-model.save("tensorflow_model_with_dense_2.h5",save_format="h5")
+model.save("tensorflow_model_with_dense_3.h5",save_format="h5")
 
 print("Saved Model.")
 

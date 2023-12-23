@@ -10,8 +10,8 @@ from os import strerror
 
 argument_parser = argparse.ArgumentParser()
 
-argument_parser.add_argument("image",help="Image path of the code to run")
-argument_parser.add_argument("model_path",help="specify the .h5 models path")
+argument_parser.add_argument("--image",help="Image path of the code to run")
+argument_parser.add_argument("--model_path",help="specify the .h5 models path")
 
 arguments = argument_parser.parse_args()
 
@@ -23,6 +23,7 @@ frame = cv2.imread(image_path)
 
 try:
     model = models.load_model(model_path)
+    print(model.summary())
 except OSError:
     raise FileNotFoundError(errno.ENOENT, strerror(errno.ENOENT), model_path)
 #Convert the captured frame into RGB

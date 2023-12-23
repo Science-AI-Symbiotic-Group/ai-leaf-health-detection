@@ -30,8 +30,8 @@ def generate_paths(is_image,file_time,image_format=".jpg",): # A simple utility 
 
 # creating argument parser variable to get arguments from command line
 argument_parser = argparse.ArgumentParser()
-argument_parser.add_argument("camera_number",help="a integer to get the camera number, starts from 0")
-argument_parser.add_argument("model_path",help="specify the .h5 model path")
+argument_parser.add_argument("--camera_number",help="a integer to get the camera number, starts from 0")
+argument_parser.add_argument("--model_path",help="specify the .h5 model path")
 
 
 arguments = argument_parser.parse_args()
@@ -69,13 +69,14 @@ while not leaf_detected:
         
         #Calling the predict function using keras
         prediction_value = model.predict(img_array) 
-
-
         print(prediction_value)
+        prediction_value = np.where(prediction_value > 0.5, 1, 0) #<--to get the binary category
+        print(prediction_value)
+
         
         if(prediction_value == 1 ):
             prediction_string = "HEALTHY LEAF"
-            print(" Leaf is Healthy.")
+            print("Leaf is Healthy.")
         elif(prediction_value<1):
             prediction_string = "UNHEALTHY LEAF"
             print('Leaf is Unhealthy.')
