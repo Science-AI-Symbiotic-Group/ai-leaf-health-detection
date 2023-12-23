@@ -6,7 +6,7 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.python.keras import layers
 from keras.models import Sequential
-from keras.layers import Dense, MaxPooling2D, Conv2D, Flatten, Rescaling, Dropout
+from keras.layers import Dense, MaxPooling2D, Conv2D, Flatten, Rescaling, Dropout, Resizing
 
 
 
@@ -41,33 +41,47 @@ AUTOTUNE = tf.data.AUTOTUNE
 
 num_classes = len(training_dataset)
 
+#model = Sequential([
+  #Resizing(img_height,img_width,interpolation="bilinear",crop_to_aspect_ratio=False),
+  #Rescaling(1./255, input_shape=(img_height, img_width, 3)),
+  #Dense(128, activation='relu'),
+  #Conv2D(16, 3, padding='same', activation='relu'),
+  #MaxPooling2D(),
+  #Conv2D(32, 3, padding='same', activation='relu'),
+  #MaxPooling2D(),
+  #Conv2D(64, 3, padding='same', activation='relu'),
+  #MaxPooling2D(),
+  #Flatten(),
+  #Dense(128, activation='relu'),
+  #Dropout(0.2),
+ # Dense(1,activation='sigmoid')
+#])
 model = Sequential([
-  Dense(128, activation='relu'),
+  #Rescaling(1./255, input_shape=(img_height, img_width, 3)),
   Conv2D(16, 3, padding='same', activation='relu'),
   MaxPooling2D(),
   Conv2D(32, 3, padding='same', activation='relu'),
   MaxPooling2D(),
-  Conv2D(64, 3, padding='same', activation='relu'),
-  MaxPooling2D(),
-  Flatten(),
-  Dense(128, activation='relu'),
-  Dropout(0.2),
-  Dense(1,activation='sigmoid')
+  layers.Conv2D(64, 3, padding='same', activation='relu'),
+  layers.MaxPooling2D(),
+  layers.Flatten(),
+  layers.Dense(128, activation='relu'),
+  layers.Dense(1,activation='sigmoid')
 ])
-
+ 
 
 model.compile(optimizer='adam',
               loss=tf.keras.losses.BinaryCrossentropy(),
               metrics=['accuracy'])
 
-epochs=10
+epochs=5
 history = model.fit(
   train_ds,
   validation_data=val_ds,
   epochs=epochs
 )
 
-model.save("tensorflow_model_with_dense_3.h5",save_format="h5")
+model.save("tensorflow_model_new.h5",save_format="h5")
 
 print("Saved Model.")
 

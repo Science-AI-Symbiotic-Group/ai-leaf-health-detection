@@ -23,7 +23,6 @@ frame = cv2.imread(image_path)
 
 try:
     model = models.load_model(model_path)
-    print(model.summary())
 except OSError:
     raise FileNotFoundError(errno.ENOENT, strerror(errno.ENOENT), model_path)
 #Convert the captured frame into RGB

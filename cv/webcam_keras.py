@@ -70,16 +70,14 @@ while not leaf_detected:
         #Calling the predict function using keras
         prediction_value = model.predict(img_array) 
         print(prediction_value)
-        prediction_value = np.where(prediction_value > 0.5, 1, 0) #<--to get the binary category
-        print(prediction_value)
 
         
         if(prediction_value == 1 ):
             prediction_string = "HEALTHY LEAF"
-            print("Leaf is Healthy.")
+            print("Leaf is healthy.")
         elif(prediction_value<1):
             prediction_string = "UNHEALTHY LEAF"
-            print('Leaf is Unhealthy.')
+            print('Leaf is unhealthy.')
         
         
         cv2.imshow("Prediction", frame)
